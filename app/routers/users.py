@@ -5,7 +5,7 @@ from app.services.utils import hash
 from app.database import get_db
 from app.schemas import UserCreate, UserOutput
 
-router = APIRouter(prefix='/user', tags=['user'])
+router = APIRouter(prefix='/user', tags=['User'])
 
 
 @router.post('/', status_code=201, response_model=UserOutput)

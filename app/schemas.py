@@ -23,4 +23,21 @@ class Token(BaseModel):
 
 
 class TokenData(BaseModel):
-    email: str | None = None
+    user_id: int
+
+
+# post
+class PostOutput(BaseModel):
+    id: int
+    title: str
+    content: str
+    created: datetime
+
+    class Config:
+        from_attributes = True
+
+
+class PostCreate(BaseModel):
+    title: str
+    content: str
+
