@@ -47,3 +47,19 @@ class Like(Base):
     created = Column(DateTime, default=datetime.utcnow)
     post = relationship(Post, backref='likes')
     owner = relationship(User, backref='likes')
+
+
+class Followers(Base):
+    __tablename__ = 'followers'
+
+    id = Column(Integer, primary_key=True, nullable=False)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    user = relationship(User, backref='followers')
+
+
+class Requests(Base):
+    __tablename__ = 'requests'
+
+    id = Column(Integer, primary_key=True, nullable=False)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    user = relationship(User, backref='requests')

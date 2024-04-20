@@ -71,3 +71,22 @@ class CommentInput(BaseModel):
 class CommentOutput(CommentToPost):
     post: PostOutput
     owner: UserOutput
+
+
+class FollowerOutput(BaseModel):
+    id: int
+    user: UserOutput
+
+
+class RequestOutput(BaseModel):
+    id: int
+    user: UserOutput
+
+
+class DoFollow(BaseModel):
+    user_id: int
+
+
+class AccRejReq(BaseModel):
+    request_id: int
+    is_accept: bool
