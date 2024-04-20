@@ -32,10 +32,10 @@ def update_my_post(post_id: int, post_data: PostCreate, db: Depends = Depends(ge
 
     if not post:
         return HTTPException(status_code=status.HTTP_204_NO_CONTENT, detail='Post doesnt exists!')
-    #
-    # if int(post.owner_id) != int(user.id):
-    #     return HTTPException(status_code=status.HTTP_405_METHOD_NOT_ALLOWED,
-    #                          detail='You dont have permission to update this post!')
+
+    if int(post.owner_id) != int(user.id):
+        return HTTPException(status_code=status.HTTP_405_METHOD_NOT_ALLOWED,
+                             detail='You dont have permission to update this post!')
 
     query.update(post_data.dict(), synchronize_session=False)
 
@@ -43,7 +43,7 @@ def update_my_post(post_id: int, post_data: PostCreate, db: Depends = Depends(ge
     return post
 
 
-@router.delete('/delete/{post_id}', status_code=200, response_model=list[PostOutput])
+@router.delete('/delete/{post_id}', status_code=200)
 def delete_my_post(post_id: int, db: Depends = Depends(get_db),
                    user: UserOutput = Depends(get_current_user)):
     post = db.query(Post).filter(Post.id == post_id, Post.owner_id == user.id).first()
@@ -52,7 +52,6 @@ def delete_my_post(post_id: int, db: Depends = Depends(get_db),
         return HTTPException(status_code=status.HTTP_204_NO_CONTENT, detail='Post doesnt exists!')
 
     post.delete()
-
     db.commit()
     return post
 
