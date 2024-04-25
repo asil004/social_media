@@ -75,7 +75,7 @@ class CommentOutput(CommentToPost):
 
 class FollowerOutput(BaseModel):
     id: int
-    user: UserOutput
+    follower: UserOutput
 
 
 class RequestOutput(BaseModel):
@@ -90,3 +90,24 @@ class DoFollow(BaseModel):
 class AccRejReq(BaseModel):
     request_id: int
     is_accept: bool
+
+
+class AllFriendsSchemaFollower(BaseModel):
+    id: int
+    follower: UserOutput
+    is_following: bool
+
+
+class AllFriendsSchemaFollowing(BaseModel):
+    id: int
+    following: UserOutput
+    is_following: bool
+
+
+class RoomCreate(BaseModel):
+    name: str
+
+
+class RoomOutput(RoomCreate):
+    id: int
+    created: datetime
